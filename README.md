@@ -1,12 +1,22 @@
+# Alumno: Miguel A. Pulido Pulido 
+**Datos de contacto:** 
+* mapulidop@gmail.com (personal)
+* mapulidop@telefonica.com (trabajo)
+* 659 962 573 (móvil: disponible de 08:00 a 20:00)
+
 # Actividades-Curso-Symfony-MariaDB
 A continuación se resume la explicación de los contenidos generados para las distintas unidades didácticas. La explicación la hago en orden inverso, para que la unidad didáctica más reciente se encuentre al principio.
 ### Unidad Didáctica 2
 #### a.- Crear un proyecto para gestionar productos, con un controlador de productos y 4 métodos CRUD
 Se crea el proyecto: **gestorProductos**, dentro de él se crea el controlador **productosController** con los siguientes métodos:
-* **C** altaProducto
-* **R** listadoProducto
-* **U** modificaProducto
-* **D** bajaProducto
+* **C** altaProducto      ruta: producto/alta
+* **R** listadoProducto   ruta: producto/listado
+* **U** modificaProducto  ruta: producto/modifica
+* **D** bajaProducto      ruta: producto/baja
+Por el momento los métodos se crean sin código. 
+Como no hemos creado aún las vistas, todos los métodos renderizan la vista por defecto producto/index.html.twig
+El parámetro que pasan es el nombre del controlador/método. 
+
 #### b.- Crear la plantilla base
 Se genera una plantilla base *base.html.twig* en html5 con los siguientes bloques:
 * titulo
@@ -42,9 +52,4 @@ En la vista listadoProductos.html.twig se rellena la tabla automáticamente con 
 
 
 ### Unidad didáctica 1
-Ejercicios de la Unidad Didáctica 1 del curso de Symfony+MariaDB
 
-Se ha subido un commit para cada uno de los 5 puntos requeridos.
-
-En el punto 4, hay una errata. En la vista noticias.html.twig, se repite dos veces el parámetro {{categoria}}. En lugar de esto, se deben mostrar {{categoria}} y {{provincia}}
-Se ha corregido en el último commit
