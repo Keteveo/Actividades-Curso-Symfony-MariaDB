@@ -66,9 +66,7 @@ Se crea una navegación bootstrap en la vista menu.html.twig que muestra el men�
 Se redirecciona desde la ruta /productos/ a la ruta /productos/listado para que por defecto se muestre el listado de productos
 
 #### e.- Rellenar la tabla de listadoProducto desde el controlador
-En el controlador se genera una estructura de datos con dos productos, y se renderiza la vista correspondiente pasando los productos.
-En la vista listadoProductos.html.twig se rellena la tabla automáticamente con los productos recibidos como parámetro.
+En el controlador se genera una estructura de datos con varios productos. En la vista listadoProducto.html.twig se realiza un bucle para recorrer la estructura de datos completa que se recibió como parámetro, y mostrar cada producto en una fila de una tabla.
 
-
-### Unidad didáctica 1
+Se utilizan filtros para mostrar los precios con dos decimales.
 

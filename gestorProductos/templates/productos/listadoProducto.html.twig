@@ -13,24 +13,14 @@
         </tr>
     </thead>
     <tbody>
+        {% for producto in productos %}
         <tr>
-            <th scope="row">LEGO 10243</th>
-            <td>Parisian Restaurant</td>
-            <td>2</td>
-            <td>150€</td>
+            <th scope="row">{{ producto.id }}</th>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.stock }}</td>
+            <td>{{ producto.precio|number_format(2, ',', '.') }}€</td>
         </tr>
-        <tr>
-            <th scope="row">LEGO 21310</th>
-            <td>Old fishing store</td>
-            <td>1</td>
-            <td>130€</td>
-        </tr>
-        <tr>
-            <th scope="row">LEGO 42078</th>
-            <td>Mac Anthem</td>
-            <td>3</td>
-            <td>150€</td>
-        </tr>
+        {% endfor %}
     </tbody>
 </table>
 

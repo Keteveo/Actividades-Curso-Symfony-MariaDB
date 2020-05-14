@@ -31,12 +31,29 @@ class ProductosController extends AbstractController
      */
     public function listadoProducto()
     {
+        $productos= array(
+            ['id'=>'LEGO 10243',
+            'nombre'=>'Parisian Restaurant',
+            'stock'=>3,
+            'precio'=>149,99],
+            ['id'=>'LEGO 21310',
+            'nombre'=>'Old fishing store',
+            'stock'=>2,
+            'precio'=>129,99],
+            ['id'=>'LEGO 10255',
+            'nombre'=>'Gran Plaza',
+            'stock'=>1,
+            'precio'=>259,99],
+            ['id'=>'LEGO 10264',
+            'nombre'=>'Corner Garage',
+            'stock'=>2,
+            'precio'=>199,99],
+        );
         return $this->render('productos/listadoProducto.html.twig', [
-            'titulo' => 'Listado de productos',
+            'productos' => $productos,
+            'titulo' => 'Listado de productos'
         ]);
     }
-
-    
 
     /**
      * @Route("/productos/modifica", name="modifica")
