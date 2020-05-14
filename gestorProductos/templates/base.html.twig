@@ -19,14 +19,12 @@
 
 <body class="d-flex flex-column h-100">
     <header>
-        <div class="container-fluid">
-            {% block cabecera %}
-            <h1>Esta es la cabecera</h1>
-            {% endblock %}
-        </div>
+        {% block cabecera %}
+        {% include "productos/menu.html.twig" %}
+        {% endblock %}
     </header>
     <main role="main" class="flex-shrink-0">
-        <div class="container-fluid">
+        <div class="container-fluid mt-2">
             {% block contenido %}
             <h1>Este es el cuerpo</h1>
             {% endblock %}

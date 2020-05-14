@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block titulo %}{{ titulo }}{% endblock %}
+
+{% block contenido %}
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Código</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">LEGO 10243</th>
+            <td>Parisian Restaurant</td>
+            <td>2</td>
+            <td>150€</td>
+        </tr>
+        <tr>
+            <th scope="row">LEGO 21310</th>
+            <td>Old fishing store</td>
+            <td>1</td>
+            <td>130€</td>
+        </tr>
+        <tr>
+            <th scope="row">LEGO 42078</th>
+            <td>Mac Anthem</td>
+            <td>3</td>
+            <td>150€</td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}
+{% block pie %}
+{{ parent() }}
+<p>Nada más que añadir por ahora</p>
+{% endblock %}

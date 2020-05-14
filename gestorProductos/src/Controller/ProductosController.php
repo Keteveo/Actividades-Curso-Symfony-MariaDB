@@ -8,15 +8,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductosController extends AbstractController
 {
     /**
-     * @Route("/productos", name="productos")
-     */
+    * @Route("/productos", name="productos")
+    */
     public function index()
     {
-        return $this->render('productos/index.html.twig', [
-            'controller_name' => 'ProductosController',
-        ]);
+        //Si no se ha seleccionado una ruta, se redirecciona al listado de productos
+        return $this->redirectToRoute('listado');
     }
-    
+
     /**
      * @Route("/productos/alta", name="alta")
      */
@@ -32,11 +31,13 @@ class ProductosController extends AbstractController
      */
     public function listadoProducto()
     {
-        return $this->render('productos/index.html.twig', [
-            'controller_name' => 'ProductosController/listadoProducto',
+        return $this->render('productos/listadoProducto.html.twig', [
+            'titulo' => 'Listado de productos',
         ]);
     }
+
     
+
     /**
      * @Route("/productos/modifica", name="modifica")
      */

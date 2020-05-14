@@ -48,7 +48,7 @@ Dentro de cada plantilla se cambia el título y la cabecera mostrando en el apar
 En el contenido se muestra un párrafo con el nombre del apartado
 
 Se añaden clases bootstrap para mostrar el pie de página pegado a la parte inferior de la misma.
-Se modifican las clases para que la cabecera vaya en etiqueta <header>, el cuerpo en <main> y el pie en <footer>. 
+Se modifican las clases para que la cabecera vaya en etiqueta header, el cuerpo en main y el pie en footer. 
 
 #### d.- Añadir CDNs, crear contenido de listadoProducto y crear vista con menú 
 Se pide que se añadan en este punto los enlaces a las CDN de Bootstrap y FontAwesome. Yo los añadí ya en el punto b
@@ -61,7 +61,9 @@ En la vista listadoProducto se añade una tabla con los campos:
 * nombre
 * stock
 * precio
-Se crea una navegación bootstrap en la vista menu.html.twig que muestra el menú resaltando el apartado en el que se encuentra
+Se crea una navegación bootstrap en la vista menu.html.twig que muestra el menú resaltando el apartado en el que se encuentra usando condicionales a partir de la ruta, usando la función app.request.get('_route')
+
+Se redirecciona desde la ruta /productos/ a la ruta /productos/listado para que por defecto se muestre el listado de productos
 
 #### e.- Rellenar la tabla de listadoProducto desde el controlador
 En el controlador se genera una estructura de datos con dos productos, y se renderiza la vista correspondiente pasando los productos.
