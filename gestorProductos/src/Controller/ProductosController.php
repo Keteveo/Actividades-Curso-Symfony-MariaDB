@@ -22,8 +22,8 @@ class ProductosController extends AbstractController
      */
     public function altaProducto()
     {
-        return $this->render('productos/index.html.twig', [
-            'controller_name' => 'ProductosController/altaProducto',
+        return $this->render('productos/altaProducto.html.twig', [
+            'titulo' => 'Alta de producto',
         ]);
     }
 
@@ -42,8 +42,8 @@ class ProductosController extends AbstractController
      */
     public function modificaProducto()
     {
-        return $this->render('productos/index.html.twig', [
-            'controller_name' => 'ProductosController/modificaProducto',
+        return $this->render('productos/modificaProducto.html.twig', [
+            'titulo' => 'Modificación de producto',
         ]);
     }
 
@@ -52,8 +52,8 @@ class ProductosController extends AbstractController
      */
     public function bajaProducto()
     {
-        return $this->render('productos/index.html.twig', [
-            'controller_name' => 'ProductosController/bajaProducto',
+        return $this->render('productos/bajaProducto.html.twig', [
+            'titulo' => 'Baja de producto',
         ]);
     }
 }

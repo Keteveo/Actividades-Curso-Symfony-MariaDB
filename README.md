@@ -41,16 +41,21 @@ Se inserta como asset el fichero public/css/estilo.css que inicialmente se crea 
 #### c.- Crear las vistas CRUD de gestión del producto
 Se crean los siguientes ficheros de plantilla:
 * **C** altaProducto.html.twig
-* **R** listadoProducto.html.twig
 * **U** modificaProducto.html.twig
 * **D** bajaProducto.html.twig
 
 Dentro de cada plantilla se cambia el título y la cabecera mostrando en el apartado que se encuentran.
-
 En el contenido se muestra un párrafo con el nombre del apartado
 
+Se añaden clases bootstrap para mostrar el pie de página pegado a la parte inferior de la misma.
+Se modifican las clases para que la cabecera vaya en etiqueta <header>, el cuerpo en <main> y el pie en <footer>. 
+
 #### d.- Añadir CDNs, crear contenido de listadoProducto y crear vista con menú 
-Se añaden los enlaces a las CDN de Bootstrap y FontAwesome
+Se pide que se añadan en este punto los enlaces a las CDN de Bootstrap y FontAwesome. Yo los añadí ya en el punto b
+
+Se crea el siguiente fichero de plantilla:
+* **R** listadoProducto.html.twig (se deja creada, aunque se completará en el siguiente apartado)
+
 En la vista listadoProducto se añade una tabla con los campos:
 * código
 * nombre
