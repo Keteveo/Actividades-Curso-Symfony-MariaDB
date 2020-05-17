@@ -7,6 +7,11 @@
 
 # Actividades-Curso-Symfony-MariaDB
 A continuación se resume la explicación de los contenidos generados para las distintas unidades didácticas. La explicación la hago en orden inverso, para que la unidad didáctica más reciente se encuentre al principio.
+### Unidad Didáctica 3
+En el directorio UD3 se incluye el fichero SQL con la resolución de las actividades propuestas.
+En los comentarios del fichero se copia el enunciado de cada una de las actividades. 
+También se incluyen dentro de comentarios SQL las respuestas de texto y aclaraciones de por qué se ha hecho la resolución de una forma u otra.
+
 ### Unidad Didáctica 2
 #### a.- Crear un proyecto para gestionar productos, con un controlador de productos y 4 métodos CRUD
 Se crea el proyecto: **gestorProductos**, dentro de él se crea el controlador **productosController** con los siguientes métodos y rutas asociadas:
