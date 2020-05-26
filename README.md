@@ -7,6 +7,127 @@
 
 # Actividades-Curso-Symfony-MariaDB
 A continuación se resume la explicación de los contenidos generados para las distintas unidades didácticas. La explicación la hago en orden inverso, para que la unidad didáctica más reciente se encuentre al principio.
+## Unidad Didáctica 4
+Voy a reutilizar el mismo proyecto Symfony usado en las anteriores unidades didácticas. No borraré el controlador de productos y, cuando llegue el momento, crearé un nuevo controlador "persona".
+Igualmente, usaré el mismo entorno de servidor de desarrollo en localhost, al que agregaré las rutas necesarias para los nuevos controladores que haya que crear. 
+En cuanto a base de datos, uso el mismo servidor usado en la UD3, con una nueba BD llamada "probador"
+
+### UD4. Punto 1
+1.    Crea la entidad “Persona” en Symfony. Los atributos de la Persona son: dni, nombre, apellidos, edad. Realiza las anotaciones y métodos correspondientes para que se genere la tabla en la base de datos.
+
+A continuación enumero los pasos seguidos:
+#### UD4.1.a.- Cambiar variables de entorno en .env
+Mi BD se llama "probador". El login es root, y al estar en localhost en un entorno de prueba no requiere clave.
+DATABASE_URL=mysql://rootd@127.0.0.1:3306/probador
+
+#### UD4.1.b.- Definir el formato de los atributos de la entidad
+Antes de crear la entidad, defino los atributos que quiero que tenga la tabla según se solicita 
+
+DNI: 9 caracteres, not null
+Nombre: 200 caracteres, not null
+Apellidos: 255 caracteres, not null
+Edad: entero, not null
+
+#### UD4.1.c.- Creación de la entidad desde consola de comandos
+Creo la entidad usando el siguiente comando de consola. Transcribo a continuación el proceso de creación:
+
+~~~
+$ php bin/console make:entity Persona
+
+ created: src/Entity/Persona.php
+ created: src/Repository/PersonaRepository.php
+ 
+ Entity generated! Now let's add some fields!
+ You can always add more fields later manually or by re-running this command.
+
+ New property name (press <return> to stop adding fields):
+ > DNI
+
+ Field type (enter ? to see all types) [string]:
+ > 
+
+
+ Field length [255]:
+ > 9
+
+ Can this field be null in the database (nullable) (yes/no) [no]:
+ > no
+
+ updated: src/Entity/Persona.php
+
+ Add another property? Enter the property name (or press <return> to stop adding fields):
+ > nombre
+
+ Field type (enter ? to see all types) [string]:
+ >
+ Field length [255]:
+ > 200
+
+ Can this field be null in the database (nullable) (yes/no) [no]:
+ > no
+
+ updated: src/Entity/Persona.php
+
+ Add another property? Enter the property name (or press <return> to stop adding fields):
+ > apellidos
+
+ Field type (enter ? to see all types) [string]:
+ >
+
+ Field length [255]:
+ >
+
+ Can this field be null in the database (nullable) (yes/no) [no]:
+ > no
+
+ updated: src/Entity/Persona.php
+
+ Add another property? Enter the property name (or press <return> to stop adding fields):
+ > edad
+
+ Field type (enter ? to see all types) [string]:
+ > integer
+ integer
+
+ Can this field be null in the database (nullable) (yes/no) [no]:
+ > no
+
+ updated: src/Entity/Persona.php
+
+ Add another property? Enter the property name (or press <return> to stop adding fields):
+ >
+
+  Success! 
+
+ Next: When you're ready, create a migration with php bin/console make:migration
+ ~~~
+
+#### UD4.1.d.- Se crea la migración
+A continuación creo la migración:
+
+~~~
+Puli@Nilo MINGW64 /c/xampp/htdocs/Symfony/gestorproductos (master)
+$ php bin/console doctrine:migrations:diff
+Generated new migration class to "C:\xampp\htdocs\Symfony\gestorProductos/src/Migrations/Version20200526153323.php"
+
+To run just this migration for testing purposes, you can use migrations:execute --up 20200526153323
+
+To revert the migration you can use migrations:execute --down 20200526153323
+~~~
+
+#### UD4.1.e.- Ejecución de la migración 
+A continuación, ejecuto la migración para que se realicen los cambios en la Base de datos. 
+Al ser la primera migración de la entidad, y no haber previamente creadas otras entidades y atributos, supone simplemente una creación de tablas.
+
+~~~
+php bin/console doctrine:migrations:migrate
+~~~
+
+Con ello quedaría concluido el punto 1 de la UD4.
+
+
+
+
 ### Unidad Didáctica 3
 En el directorio UD3 se incluye el fichero SQL con la resolución de las actividades propuestas.
 En los comentarios del fichero se copia el enunciado de cada una de las actividades. 
