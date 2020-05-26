@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-dark nav-bar-fixed-top bg-dark">
-    <a class="navbar-brand" href="#">Gestión de productos</a>
+    <a class="navbar-brand" href="#">::: {{ titulo }} :::</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
         aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -10,7 +10,7 @@
                 {% endif %}>
                 <a class="nav-link" href="listado">Listado<span class="sr-only">(current)</span></a>
             </li>
-            <li {% if app.request.get('_route') == 'alta' %} class="nav-item active" {% else %} class="nav-item"
+            <li {% if app.request.get('_route') == 'alta' or app.request.get('_route') == 'nuevaPersona' %} class="nav-item active" {% else %} class="nav-item"
                 {% endif %}>
                 <a class="nav-link" href="alta">Alta</a>
             </li>

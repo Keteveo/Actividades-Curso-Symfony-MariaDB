@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block titulo %}{{ titulo }}{% endblock %}
+
+{% block contenido %}
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">DNI</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">Edad</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for p in persona %}
+        <tr>
+            <th scope="row">{{ p.DNI }}</th>
+            <td>{{ p.nombre }}</td>
+            <td>{{ p.apellidos }}</td>
+            <td>{{ p.edad }} años</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+{% block pie %}
+{{ parent() }}
+{% endblock %}

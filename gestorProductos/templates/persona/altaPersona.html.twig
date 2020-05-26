@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block titulo %}{{ titulo }}{% endblock %}
+
+{% block contenido %}
+<div class="card col-md-6 p-3">
+    <h5 class="card-header mb-4">Introduce los datos de la persona</h5>
+    <form method="POST" action="nuevaPersona">
+        <div class="form-group">
+            <label for="inputNombre">Nombre</label>
+            <input type="text" class="form-control" id="inputNombre" placeholder="Nombre" name="inputNombre">
+        </div>
+        <div class="form-group">
+            <label for="inputApellidos">Apellidos</label>
+            <input type="text" class="form-control" id="inputApellidos" placeholder="Apellidos" name="inputApellidos">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-9">
+                <label for="inputDNI">DNI</label>
+                <input type="text" class="form-control" id="inputDNI" placeholder="DNI" name="inputDNI">
+            </div>
+            <div class="form-group col-md-3">
+                <label for="inputEdad">Edad</label>
+                <input type="text" class="form-control" id="inputEdad" placeholder="99" name="inputEdad">
+            </div>
+            
+        </div>
+    <button type="submit" class="btn btn-primary">Dar de alta</button>
+    </form>
+</div>
+{% endblock %}
+{% block pie %}
+{{ parent() }}
+{% endblock %}

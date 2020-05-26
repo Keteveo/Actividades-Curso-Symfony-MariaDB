@@ -23,10 +23,10 @@ DATABASE_URL=mysql://rootd@127.0.0.1:3306/probador
 #### UD4.1.b.- Definir el formato de los atributos de la entidad
 Antes de crear la entidad, defino los atributos que quiero que tenga la tabla según se solicita 
 
-DNI: 9 caracteres, not null
-Nombre: 200 caracteres, not null
-Apellidos: 255 caracteres, not null
-Edad: entero, not null
+- DNI: 9 caracteres, not null
+- Nombre: 200 caracteres, not null
+- Apellidos: 255 caracteres, not null
+- Edad: entero, not null
 
 #### UD4.1.c.- Creación de la entidad desde consola de comandos
 Creo la entidad usando el siguiente comando de consola. Transcribo a continuación el proceso de creación:
@@ -125,16 +125,40 @@ php bin/console doctrine:migrations:migrate
 
 Con ello quedaría concluido el punto 1 de la UD4.
 
+### UD4. Punto 2
+2.    Crea un formulario solicitando los datos necesarios para dar de alta a una Persona. Los datos ingresados deben guardarse en la base de datos.
+
+Antes de crear el formulario, creo un controlador llamado **Persona** desde el cual se interactuará con las vistas y el modelo.
+~~~
+$ php bin/console make:controller PersonaController
+~~~
+Dentro del controlador, crearé un método con la ruta /persona/alta que se encargará de ejecutar el código que interactúa con la vista del formulario de alta.
+
+Antes de seguir, he borrado el controlador y las vistas de la anterior unidad didáctica.
+
+He generado unas nuevas plantillas para los métodos CRUD. Inicialmente sólo debía agregar la que hace el ALTA (C). Las plantillas "modifica" y "baja" están en blanco inicialmente.
+La plantilla Listado muestra un listado de personas a partir de un array multidimensional que recibe como parámetro. 
+
+**Creación del formulario**
+El método altaPersona, que atiende a la ruta persona/alta, simplemente renderiza la plantilla donde se ubicará el formulario.
+Dentro de la plantilla altaPersona.html.twig se genera un formulario dentro del bloque "contenido", usando además bootstrap para mostrar el formulario con un mejor look.
+
+El formulario, al ser rellenado, es atendido desde el controlador con el método "nuevaPersona". Es en este método desde el que se utiliza el entity manager para insertar el dato en el modelo. 
+Una vez insertado en la BD, se utiliza la plantilla listadoPersona.html.twig, a la que se pasa como parámetro un array multidimensional de personas. En este caso, sólo lleva una persona. También se pasa como título "Realizado el alta de ".
+
+En el menú se añaden condicionales para resaltar el enlace del método que se ha ejecutado. En caso de estar en la ruta de alta o nuevaPersona, resalta el enlace "Alta".
+
+Por último, se prueba que la funcionalidad sea la solicitada. Se constata que, pese a haber indicado que los campos debían ser "not null", cuando se dejan en blanco en el formulario, los campos no aparecen rellenos en la BD. Dejo esto como punto de investigación futura.
 
 
 
-### Unidad Didáctica 3
+## Unidad Didáctica 3
 En el directorio UD3 se incluye el fichero SQL con la resolución de las actividades propuestas.
 En los comentarios del fichero se copia el enunciado de cada una de las actividades. 
 También se incluyen dentro de comentarios SQL las respuestas de texto y aclaraciones de por qué se ha hecho la resolución de una forma u otra.
 
-### Unidad Didáctica 2
-#### a.- Crear un proyecto para gestionar productos, con un controlador de productos y 4 métodos CRUD
+## Unidad Didáctica 2
+### a.- Crear un proyecto para gestionar productos, con un controlador de productos y 4 métodos CRUD
 Se crea el proyecto: **gestorProductos**, dentro de él se crea el controlador **productosController** con los siguientes métodos y rutas asociadas:
 |   | Método | Ruta |
 | --- | --- | ---|
@@ -147,7 +171,7 @@ Por el momento los métodos se crean sin código.
 Como no hemos creado aún las vistas, todos los métodos renderizan la vista por defecto producto/index.html.twig
 El parámetro que pasan es el nombre del controlador/método. 
 
-#### b.- Crear la plantilla base
+### b.- Crear la plantilla base
 Se genera una plantilla base *base.html.twig* en html5 con los siguientes bloques:
 | {{% block %}}  | Contenido del bloque |
 | --- | --- |
@@ -164,7 +188,7 @@ También se incluye un fichero CSS que personaliza los elementos de bootstrap. P
 
 Se inserta como asset el fichero public/css/estilo.css que inicialmente se crea vacío, y se irá usando a futuro.
 
-#### c.- Crear las vistas CRUD de gestión del producto
+### c.- Crear las vistas CRUD de gestión del producto
 Se crean los siguientes ficheros de plantilla:
 * **C** altaProducto.html.twig
 * **U** modificaProducto.html.twig
@@ -176,7 +200,7 @@ En el contenido se muestra un párrafo con el nombre del apartado
 Se añaden clases bootstrap para mostrar el pie de página pegado a la parte inferior de la misma.
 Se modifican las clases para que la cabecera vaya en etiqueta header, el cuerpo en main y el pie en footer. 
 
-#### d.- Añadir CDNs, crear contenido de listadoProducto y crear vista con menú 
+### d.- Añadir CDNs, crear contenido de listadoProducto y crear vista con menú 
 Se pide que se añadan en este punto los enlaces a las CDN de Bootstrap y FontAwesome. Yo los añadí ya en el punto b
 
 Se crea el siguiente fichero de plantilla:
@@ -191,7 +215,7 @@ Se crea una navegación bootstrap en la vista menu.html.twig que muestra el men�
 
 Se redirecciona desde la ruta /productos/ a la ruta /productos/listado para que por defecto se muestre el listado de productos
 
-#### e.- Rellenar la tabla de listadoProducto desde el controlador
+### e.- Rellenar la tabla de listadoProducto desde el controlador
 En el controlador se genera una estructura de datos con varios productos. En la vista listadoProducto.html.twig se realiza un bucle para recorrer la estructura de datos completa que se recibió como parámetro, y mostrar cada producto en una fila de una tabla.
 
 Se utilizan filtros para mostrar los precios con dos decimales.
