@@ -150,6 +150,17 @@ En el menú se añaden condicionales para resaltar el enlace del método que se 
 
 Por último, se prueba que la funcionalidad sea la solicitada. Se constata que, pese a haber indicado que los campos debían ser "not null", cuando se dejan en blanco en el formulario, los campos no aparecen rellenos en la BD. Dejo esto como punto de investigación futura.
 
+### UD4. Punto 3
+3.    Haz un listado de las personas almacenadas en la base de datos.
+En el anterior punto ya se había dejado preparada una vista que mostrara un listado a partir de un array multidimensional
+
+En la ruta persona/listado se crea una instancia de EntityManager, se carga el contenido del repositorio de personas en una variable, y a continuación se cargan todos datos en un array que se pasa a la vista para mostrar el listado de personas.
+
+### UD4. Punto 4
+4.    Crea un cuadro de texto que solicite un dni y elimine la persona correspondiente en la base de datos.
+
+### UD4. Punto 5
+5.    Crea un cuadro de texto que solicite un dni y modifique el nombre de dicha persona por: Pepito.
 
 
 ## Unidad Didáctica 3

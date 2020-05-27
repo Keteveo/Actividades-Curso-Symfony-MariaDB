@@ -77,23 +77,16 @@ class PersonaController extends AbstractController
      */
     public function listadoPersona()
     {
-        $persona= array(
-            ['DNI'=>'123412134a',
-            'nombre'=>'Felipe',
-            'apellidos'=>'Santos mata',
-            'edad'=>40],
-            ['DNI'=>'098231011c',
-            'nombre'=>'Joaquín',
-            'apellidos'=>'Rivera Rodríguez',
-            'edad'=>50],
-            ['DNI'=>'0909808381E',
-            'nombre'=>'Jacinto',
-            'apellidos'=>'Vivo Muerto',
-            'edad'=>30],
-            
-        );
+        //Primero se crea una instancia de EntityManager
+        $EntityManager=$this->getDoctrine()->getManager();
+        //a continuación se crea un repositorio con los datos del modelo de clase Persona
+        $personas_repo=$this->getDoctrine()->getRepository(Persona::class);
+        //Se carga en la variable $personas todo el contenido del repositorio
+        $personas=$personas_repo->findAll();
+        
+        //Se renderiza el listado, pasando como parámetro todas las personas que había sacado del repositorio
         return $this->render('persona/listadoPersona.html.twig', [
-            'persona' => $persona,
+            'persona' => $personas,
             'titulo' => 'Listado de personas'
         ]);
     }
