@@ -176,7 +176,18 @@ Por último, se renderiza de nuevo la página de baja mostrando un mensaje de é
 
 ### UD4. Punto 5
 5.    Crea un cuadro de texto que solicite un dni y modifique el nombre de dicha persona por: Pepito.
+Este apartado es muy parecido al anterior. La diferencia principal es que la vista muestra DNI y nombre, y el formulario pregunta DNI y nombre.
+Se genera el método modificaPersona que atiende a la ruta persona/modifica 
+También se genera el método modificador que atiende a la ruta modificador, donde se reciben los parámetros POST 
 
+Una vez se introduce un valor en el formulario, se realiza la modificación, introduciendo el nombre elegido en todos los registros con ese DNI.
+Se hace una comprobación preliminar y se vuelve a mostrar la vista de modificación con un mensaje de error en caso de que el DNI o nombre sean nulos, o que el DNI no se encuentre en la base de datos.
+En caso de éxito, se retorna un mensaje indicando el DNI con el nombre modificado.
+
+### Opciones de mejora
+La primera y más obvia es comprobar en el alta si está repetido el DNI igual que se hace en la modificación y borrado.
+
+Otra opción es atender el alta desde una única función, que reciba el posible Request POST. Al arrancar la función, comprobaría si hay o no argumentos POST. EN caso de que no hubiera, debería ejecutar lo que actualmente se encuentra en el método altaPersona(), y si hubiera parámetros, lo que actualmente se encuentra en el método nuevaPersona(). De ese modo, con un único método y una única ruta podría atenderse a ambas funciones.
 
 ## Unidad Didáctica 3
 En el directorio UD3 se incluye el fichero SQL con la resolución de las actividades propuestas.

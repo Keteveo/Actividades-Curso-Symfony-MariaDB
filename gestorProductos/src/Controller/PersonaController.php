@@ -123,16 +123,6 @@ class PersonaController extends AbstractController
     }
 
     /**
-     * @Route("/persona/modifica", name="modifica")
-     */
-    public function modificaPersona()
-    {
-        return $this->render('persona/modificaPersona.html.twig', [
-            'titulo' => 'Modificación de persona',
-        ]);
-    }
-
-    /**
      * @Route("/persona/baja", name="baja")
      */
     public function bajaPersona()
@@ -197,6 +187,76 @@ class PersonaController extends AbstractController
         return $this->render('persona/bajaPersona.html.twig', [
             'persona' => $personas,
             'titulo' => 'Baja de personas',
+            'mensaje' => $msg,
+        ]);
+    }
+    /**
+     * @Route("/persona/modifica", name="modifica")
+     */
+    public function modificaPersona()
+    {
+       //Primero se crea una instancia de EntityManager
+       $EntityManager=$this->getDoctrine()->getManager();
+       //a continuación se crea un repositorio con los datos del modelo de clase Persona
+       $personas_repo=$this->getDoctrine()->getRepository(Persona::class);
+       //Se carga en la variable $personas todo el contenido del repositorio
+       $personas=$personas_repo->findAll();
+       
+       //Se renderiza el formulario, que incluirá un listado de DNI. Para ello se envía  el listado de personas sacado del repositorio
+       return $this->render('persona/modificaPersona.html.twig', [
+           'persona' => $personas,
+           'titulo' => 'Cambio de nombre',
+           'mensaje' => 'Introduce el DNI, y el nuevo nombre',
+        ]);
+    }
+    
+ 
+     /**
+     * @Route("/persona/modificador", name="modificador")
+     */
+    public function modificador(Request $request)
+    {
+        //Primero se crea una instancia de EntityManager
+        $EntityManager=$this->getDoctrine()->getManager();
+        //a continuación se crea un repositorio con los datos del modelo de clase Persona
+        $personas_repo=$this->getDoctrine()->getRepository(Persona::class);
+        //Se carga en la variable $personas todo el contenido del repositorio
+        $dni=$request->get('inputDni');
+        $nombre=$request->get('inputNombre');
+
+        //Si no se rellenó algún campo, vuelve a mostrar el formulario de baja con un mensaje de error
+        if(!$dni || !$nombre) {
+            //Devuelve todas las personas para mostrar el listado de DNIs
+            $personas=$personas_repo->findAll();
+            return $this->render('persona/modificaPersona.html.twig', [
+                'persona' => $personas,
+                'titulo' => 'Cambio de nombre',
+                'mensaje' => 'Debe rellenar el DNI y el nombre',
+            ]);
+
+        }
+        //busca las personas con el DNI a modificar
+        $persona=$personas_repo->findByDni($dni);
+        //Modifica la persona. Lo hace en un bucle por si hubiera DNIs duplicados por error en la BD, cambiar el nombre a todos
+        foreach ($persona as &$modificar) {
+            $modificar->setNombre($nombre);
+            //$EntityManager->remove($modificar);
+        }
+        $EntityManager->flush();
+        //Y actualiza el listado de personas
+        $personas=$personas_repo->findAll();
+        //Si no se encontró el DNI, ho habrá cambiado nada y retornará con un mensaje de error
+        //Si se encontró el DNI, se habrán modificado los nombres de esas personas y devolverá la confirmación
+        if(!$persona){
+            $msg='No se ha encontrado el DNI '.$dni;
+        }
+        else{
+            $msg='Se ha cambiado el nombre de la persona con DNI '.$dni . ' por el nombre '.$nombre;
+        }
+        //Se renderiza el formulario, que incluirá un listado de DNIs. Para ello se envía  el listado de personas sacado del repositorio
+        return $this->render('persona/modificaPersona.html.twig', [
+            'persona' => $personas,
+            'titulo' => 'Cambio de nombre',
             'mensaje' => $msg,
         ]);
     }
