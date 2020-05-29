@@ -158,6 +158,21 @@ En la ruta persona/listado se crea una instancia de EntityManager, se carga el c
 
 ### UD4. Punto 4
 4.    Crea un cuadro de texto que solicite un dni y elimine la persona correspondiente en la base de datos.
+>Antes de realizar lo pedido en este punto se reorganiza el código del apartado anterior, declarando el gestor de entidad al principio del método y realizando unas comprobaciones básicas. Queda como mejora a futuro consultar si existe previamente el DNI en la base de datos para evitar introducir un registro duplicado.
+>
+>Se modifica además la plantilla del listado para permitir además del título un menjaje. De este modo, se podrá utilizar esta misma plantilla para mostrar excepciones generadas en los distintos métodos de baja, modificación y alta. Eso supuso algún retoque en las plantillas para dejar una identidad visual de conjunto correcta.
+
+Para la baja se crea la ruta /persona/baja en la que el controlador renderiza una vista con el listado de DNIs.
+Para renderizar el listado de DNIs, primero consulta el repositorio de personas y le pasa todos los valores a la vista, que rellena una tabla usando solamente los DNIs
+
+El formulario relleno se recoge en la ruta y método elimina, que recibe los parámetros por POST en un Request.
+
+Se comprueba primero si el valor introducido es nulo, en cuyo caso vuelve a renderizar la página de baja con un mensaje de error
+A continuación, busca el DNI introducido en el repositorio. SI no se encuentra, renderiza de nuevo la página de baja con un mensaje de error
+Si el DNI se encuentra, utiliza el Element Manager para borrar los campos cuyo DNI coincida con el introducido.
+Para prevenir el caso de que el DNI pudiera estar repetido por error, realiza la búsqueda en un bucle. Al finalizar el bucle, hace un flush para aplicar los campos
+Por último, se renderiza de nuevo la página de baja mostrando un mensaje de éxito con el DNI borrado.
+
 
 ### UD4. Punto 5
 5.    Crea un cuadro de texto que solicite un dni y modifique el nombre de dicha persona por: Pepito.

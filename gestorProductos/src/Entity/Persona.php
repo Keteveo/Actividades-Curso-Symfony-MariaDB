@@ -20,7 +20,7 @@ class Persona
     /**
      * @ORM\Column(type="string", length=9)
      */
-    private $DNI;
+    private $dni;
 
     /**
      * @ORM\Column(type="string", length=200)
@@ -42,14 +42,14 @@ class Persona
         return $this->id;
     }
 
-    public function getDNI(): ?string
+    public function getDni(): ?string
     {
-        return $this->DNI;
+        return $this->dni;
     }
 
-    public function setDNI(string $DNI): self
+    public function setDni(string $dni): self
     {
-        $this->DNI = $DNI;
+        $this->dni = $dni;
 
         return $this;
     }

@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block titulo %}{{ titulo }}{% endblock %}
+{% block titulo %}Gestión de personas | {{ titulo }}{% endblock %}
 
 {% block contenido %}
+<h1>{{ titulo }}</h1>
+<h3>{{ mensaje }}</h3>
 <table class="table table-striped">
     <thead class="thead-dark">
         <tr>
@@ -15,7 +17,7 @@
     <tbody>
         {% for p in persona %}
         <tr>
-            <th scope="row">{{ p.DNI }}</th>
+            <th scope="row">{{ p.dni }}</th>
             <td>{{ p.nombre }}</td>
             <td>{{ p.apellidos }}</td>
             <td>{{ p.edad }} años</td>
