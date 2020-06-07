@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block titulo %}Nueva noticia{% endblock %}
+
+{% block contenido %}
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-lg-6 col-md-8">
+        <div class="card mb-3">
+            <div class="card-header text-white bg-info">Nueva Noticia</div>
+                <div class="card-body bg-light text-dark">
+                    <p class="card-text">Aquí va el formulario</p>
+                        <form method="POST" action="nuevaNoticia">
+                            <div class="form-group">
+                                <label for="titulo">Título</label> 
+                                <input type="text" class="form-control" id="titulo" placeholder="Título" name="titulo">
+                            </div>
+                            <div class="form-group">
+                                <label for="contenido">Contenido</label>
+                                <textarea class="form-control" id="contenido" placeholder="Contenido de la noticia" name="contenido"></textarea>
+                            </div>
+                        <button type="submit" class="btn btn-info">Nueva noticia</button><button class="btn btn-danger float-right" ><a class="fas fa-undo text-light" href="{{path('noticia')}}"> Descartar</a></button>
+                        </form>
+                </div>  
+            </div>
+        </div>
+    </div>   
+</div>
+
+{% endblock %}

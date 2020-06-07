@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block titulo %}Hello NoticiaController!{% endblock %}
+
+
+
+{% block contenido %}
+<div class="jumbotron">
+{% if mensaje is defined %}
+    <h3>{{mensaje}}</h3>
+{% endif %}
+<div class="row">        
+    {% for noticia in noticias %}
+    
+    
+        <div class="col-lg-4 col-md-6">
+            <div class="card text-white bg-dark mb-3">
+                <div class="card-header"><a class="navbar-brand fas fa-newspaper float-right" ></a>#{{ noticia.id }}</div>
+                <div class="card-body bg-light text-dark">
+                    <h5 class="card-title">{{ noticia.titulo }}</h5>
+                    <p class="card-text">{{ noticia.contenido }}</p>
+                </div>  
+                <div class="card-footer bg-light">
+                    <div class="row">
+                        <div class="col-4">{% if not mensaje is defined %}<a class="fas text-info fa-edit mr-2" href="{{path ('edicion', {'id':noticia.id}) }}" title="Editar Noticia"></a><a class="fas text-danger fa-trash-alt" href="{{ path('borrado', {'id':noticia.id}) }}" title="Borrar Noticia"></a>{% endif %}</div>
+                        <div class="col-8 text-right text-muted">{{noticia.fecha | date('d-m-Y H:i:s')}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <div class="col-lg-4 col-md-6">
+        <a type="button" class="btn btn-primary" href="{{path('nueva')}}"><i class="fas fa-plus-square"></i> Nueva Noticia</a>
+    </div>
+    
+    </div>       
+</div>
+
+{% endblock %}

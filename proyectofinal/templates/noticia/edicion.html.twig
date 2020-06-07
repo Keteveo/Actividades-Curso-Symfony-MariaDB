@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block titulo %}Edición de noticia{% endblock %}
+
+{% block contenido %}
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-header text-white bg-info">Modificar noticia {{noticia.id}}</div>
+                <div class="card-body bg-light text-dark">
+                    <p class="card-text">Aquí va el formulario</p>
+                    <form method="POST" action="/noticia/modificaNoticia">
+                        <div class="form-group">
+                            <label for="titulo">Título</label>
+                            <input type="text" class="form-control" id="titulo" value="{{ noticia.titulo }}" name="titulo">
+                        </div>
+                        <div class="form-group">
+                            <label for="contenido">Contenido</label>
+                            <textarea class="form-control" id="contenido" placeholder="{{ noticia.contenido }}" name="contenido">{{noticia.contenido}}</textarea>
+                        </div>
+                        <input type="hidden" class="form-control"= id="id" value={{noticia.id}} name="id">
+                        <div class ="text-info"><p>La fecha original  {{ noticia.fecha | date('d-m-Y H:i:s')}} se cambiará por la fecha actual</p></div>
+                    <button type="submit" class="btn btn-info">Modificar noticia</button><button class="btn btn-danger float-right" ><a class="fas fa-undo text-light" href="{{path('noticia')}}"> Descartar</a></button>
+                    </form>
+                   
+                </div>  
+            </div>
+        </div>
+
+ 
+        <div class="col-md-6">
+            <div class="card-header text-white bg-dark"><h5>Noticia original</h5></div>
+            <div class="card-body bg-secondary text-white">
+                <h5 class="card-title">{{ noticia.titulo }}</h5>
+                <div class="card-text">{{ noticia.contenido }}</div>
+            </div>
+            <div class="card-footer bg-dark">
+                <div class="text-right text-light">Fecha original: {{ noticia.fecha | date('d-m-Y H:i:s')}}</div>
+            </div>
+        </div>
+    </div>
+    
+    </div>       
+</div>
+
+{% endblock %}

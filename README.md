@@ -7,7 +7,105 @@
 
 # Actividades-Curso-Symfony-MariaDB
 A continuación se resume la explicación de los contenidos generados para las distintas unidades didácticas. La explicación la hago en orden inverso, para que la unidad didáctica más reciente se encuentre al principio.
-## Unidad Didáctica 4
+
+# Proyecto final integrador
+## Crear la Base de datos y tabla
+Creo el proyecto "proyectofinal" dentro del directorio symfony con el siguiente comando:
+
+    $ composer create-project symfony/website-skeleton proyectofinal
+Modifico a continuación etc/hosts y el fichero de virtualhosts de apache para redireccionar a mi nuevo proyecto usando la url http://proyectofinal.com.test
+
+Para acabar el Punto 1, creo la base de datos con la tabla que se solicita, y la relleno con un par de valores de prueba
+
+    CREATE DATABASE IF NOT EXISTS diariocurso;
+    USE diariocurso;
+    CREATE TABLE IF NOT EXISTS  noticia (id int(8) AUTO_INCREMENT, titulo VARCHAR(200), contenido VARCHAR(5000), fecha DATETIME, PRIMARY KEY (id));
+    INSERT INTO noticia (titulo, contenido, fecha) VALUES 
+        ('Inicio del curso','Arranca el curso de Symfony+MariaDB con un grupo reducido de alumnos',CURRENT_TIME), 
+        ('UD1','La primera unidad didáctica es una pequeña introducción al mundo Symfony', CURRENT_TIME-1);
+
+A continuación modifico el fichero .env de nuestro proyecto Symfony para enlazar correctamente a nuestra base de datos
+
+    DATABASE_URL=mysql://root@127.0.0.1:3306/diariocurso
+Y, por último, importo la base de datos que creé para crear la entidad, y regenero para que cree los getters y setters
+
+    $ php bin/console doctrine:mapping:import App\Entity annotation --path src/Entity
+    $ php bin/console make:entity --regenerate App
+
+## Crear las vistas CRUD
+En primer lugar modifico el fichero con la vista base para incluir los enlaces cloud de bootstrap y fontawesome.
+A continuación, creo el controlador noticia para utilizarlo probando las vistas según las voy generando.
+
+    $ php bin/console make:controller noticia
+
+En la vista base creo una estructura con los bloques cabecera, contenido y pie, inicialmente vacíos de contenido dinámico pero con una estructura base de bootstrap.
+
+#### Menú
+En la cabecera he insertado un menú muy básico que he separado en una plantilla independiente menu.html.twig  
+
+Este menú inicialmente tiene solamente dos opciones, una para mostrar todas las noticias que hace asimismo de título de sección, y otra con un botón para dar de alta una noticia. 
+
+En el menú no he puesto las opciones cr**UD** de modificación y borrado porque éstas estarán incluidas como iconos asociados a cada noticia en la propia vista de listado de noticias.
+
+### Vista de listado (cRud)
+He decidido que el listado se realizará en el index de plantillas de Noticia. De ese modo, cada vez que se ingrese a la ruta /noticias/ se mostrará el listado con las distintas opciones en el menú y las noticias.
+
+Como quiero reutilizar código, he creado el listado para renderizar un array de noticias que se reciben como parámetro y un mensaje. De ese modo, desde las vistas de edición y alta, podré mostrar la nueva noticia dada de alta renderizando la vista de listado con un mensaje correcto. Igualmente, esta vista servirá para emitir mensajes de error si solo se pasa un mensaje y el array de noticias que se pasa está vacío.
+
+Para mostrar el listado de noticias (Read) he decidido mostrar cada noticia en una tarjeta de la clase *card* de bootstrap, con el título en el encabezado, el contenido en el cuerpo, y los iconos de modificar/borrar en el pie.
+
+En la parte superior se deja un espacio para insertar un mensaje, dado que esta vista será llamada desde varios métodos del controlador, indicando la operación que se ha realizado.
+La vista base recibe como parámetros: 
+
+* **mensaje** que es el mensaje que se mostrará en la parte superior de la vista
+* **noticias** que es un array de noticias con los campos **titulo**, **contenido** y **fecha**
+
+He puesto unos condicionales para mostrar los botones de modificación y borrado **únicamente** cuando se renderiza la vista sin mensaje. Es decir, solo cuando se pretenda mostrar el listado sin más. Si se muestra con un mensaje, será del estilo "ha dado de alta la nueva noticia", en cuyo caso no tiene sentido mostrar sobre ella los botones de editar y modificar, y solo se mostrará la caja de noticia sin opciones asociadas.
+
+### Vista de nueva noticia (Crud)
+La vista de nueva noticia (Create) consiste en un formulario con los campos titulo y contenido, además de un botón de "crear noticia".
+He creado la vista directamente en html, no he usado el formbuilder, puesto que me resulta más práctico. El resultado es el mismo.
+
+La vista de nueva noticia no recibe parámetros.
+
+### Vista de modificación (crUd)
+La vista de modificación consiste en un formulario de edición en una tarjeta bootstrap de 6 unidades de ancho, y en la parte derecha otra tarjeta bootstrap mostrando el contenido inicial.
+
+Igual que en el alta, no he usado formbuilder, sino que he generado el formulario directamente usando html.
+
+La vista de modificación recibe como parámetro una noticia, cuyo contenido añade a los valores por defecto del formulario para poder editar su contenido.
+
+### Vista de borrado (cruD)
+
+Para el borrado no es necesario realizar una vista independiente.
+
+En la vista de listado de noticias se mostrarán los iconos de edición y borrado de cada noticia en su tarjeta, que serán los que dirijan a la ruta de borrado. Una vez se haya realizado el borrado, se renderizará la vista de listado usando un mensaje de confirmación del borrado.
+
+## Métodos de controlador CRUD
+
+### Gestionar el alta de la noticia
+Se implementa el método \noticia\nueva que genera la vista con el formulario
+Se implementa también el método \noticia\nuevanoticia que atiende al SUBMIT asociado al botón de "Crear noticia" del formulario. Es desde este métdodo desde el cual se comunica con el modelo realizando el alta en la base de datos. 
+
+En cuanto a la fecha, el formulario de alta no solicita una nueva fecha/hora de creación, sino que se utiliza la fecha actual del sistema para darla de alta.
+
+## Gestionar la baja de la noticia
+El método del controlador que atiende la ruta \noticia\baja\id se encarga de realizar el borrado en la BD del registro con ese ID. 
+
+    Posible mejora:    
+    Implementar una vista donde se muestre la noticia y se pida una confirmación. Dicha confirmación sería atendida por el método que se encarga de realizar el borrado.
+
+## Gestionar la modificación de la noticia
+En este punto se implementa el método que atiende a la ruta \noticia\edicion\id que se desencadena al pulsar el botón "modificar" del formulario enviando como parámetro el ID de la noticia a modificar. Desde este método se muestra la vista de modificación.
+
+Cuando se modifica la noticia en la vista de modificación se llama a la ruta /noticia/modificaNoticia/id para lo cual se implementa el método que se comunica con la BD y realiza la modificación. Finalmente, devuelve un mensaje de éxito mostrando el listado con la noticia recién modificada.
+
+Sobre la fecha, al modificar se cambia la fecha de la noticia poniendo la fecha actual del sistema.
+
+## Hasta aquí el caso final integrador. El código está comentado. He realizado pruebas funcionando correctamente y contemplando excepciones básicas. Como extra, he añadido un diseño con bootstrap e iconos fontawesome.
+
+
+# Unidad Didáctica 4
 Voy a reutilizar el mismo proyecto Symfony usado en las anteriores unidades didácticas. No borraré el controlador de productos y, cuando llegue el momento, crearé un nuevo controlador "persona".
 Igualmente, usaré el mismo entorno de servidor de desarrollo en localhost, al que agregaré las rutas necesarias para los nuevos controladores que haya que crear. 
 En cuanto a base de datos, uso el mismo servidor usado en la UD3, con una nueba BD llamada "probador"
